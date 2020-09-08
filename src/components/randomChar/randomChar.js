@@ -5,16 +5,21 @@ import Spinner from '../spinner/';
 import ErrorMessage from '../errorMessage/';
 
 export default class RandomChar extends Component {
-    constructor () {
-        super();
-        this.updateCharacter()
-    }
 
     gotService = new gotService();
 
     state = {
         char: {},
         loading: true
+    }
+
+    componentDidMount() {
+        this.updateCharacter()
+        this.timerId = setInterval(this.updateCharacter, 1500)
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timerId)
     }
 
     onCharLoaded = (char) => {
@@ -25,14 +30,14 @@ export default class RandomChar extends Component {
         })
     }
 
-    onError = (err) => {
+    onError = () => {
         this.setState({
             error: true,
             loading: false
         })
     }
 
-    updateCharacter() {
+    updateCharacter = () => {
         const id = Math.floor(Math.random()*1400+25);
         this.gotService.getCharacter(id)
             .then(this.onCharLoaded)
@@ -41,9 +46,6 @@ export default class RandomChar extends Component {
 
     render() {
         const {char, loading, error, click} = this.state;
-
-        console.log(click)
-
 
         const errorMessage = error ? <ErrorMessage /> : null;
         const spinner = loading ? <Spinner/> : null
@@ -67,7 +69,7 @@ const View = ({char}) => {
     const {name, gender, born, died, culture} = char;
     return (
         <>
-            <h4>Random Character: {name}</h4>
+            <h4>Random Character: <br/> {name}</h4>
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item d-flex justify-content-between">
                         <span className="term">Gender </span>

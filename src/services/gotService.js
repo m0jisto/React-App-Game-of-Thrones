@@ -3,7 +3,7 @@ export default class gotService {
         this._apiBase = 'https://anapioficeandfire.com/api'
     }
 
-    async getResource (url) {
+    getResource = async (url) => {
         const res = await fetch(`${this._apiBase}${url}`);
               
         if (!res.ok) {
@@ -13,38 +13,39 @@ export default class gotService {
         return await res.json();
     }
 
-    async getAllCharacters () {
+    getAllCharacters = async () => {
         const result = await this.getResource('/characters?page=5&pageSize=10');
         return result.map(this._transformCharacter)
     }
      
-    async getCharacter (id) {
+    getCharacter = async (id) => {
         const character = await this.getResource(`/characters/${id}`)
         return this._transformCharacter(character)
     }
 
-    async getAllBooks () {
+    getAllBooks = async () => {
         const result = await this.getResource('/books/');
         return result.map(this._transformBook)
     }
      
-    async getBook (id) {
+    getBook = async (id) => {
         const character = await this.getResource(`/books/${id}`)
         return this._transformBook(character)
     }
 
-    async getAllHouses () {
+    getAllHouses = async () => {
         const result = await this.getResource('/houses/');
         return result.map(this._transformHouse)
     }
      
-    async getHouse (id) {
+    getHouse = async (id) => {
         const character = await this.getResource(`/houses/${id}`)
         return this._transformHouse(character)
     }
     
-    _transformCharacter(char) {
+    _transformCharacter (char) {
         return {
+            id: char.url.replace(/[https, api, /, :, www, nofcendfrem, .]/g , ''),
             name: char.name || '-',
             gender: char.gender|| '-',
             born: char.born || '-',
@@ -55,21 +56,22 @@ export default class gotService {
 
     _transformHouse(house) {
         return {
-            name: house.name,
-            region: house.region,
-            words: house.words,
-            titles: house.titles,
-            overlord: house.overlord,
-            ancestralWeapons: house.ancestralWeapons
+            id: house.url.replace(/[https, api, /, :, www, nofcendfrem, ., u]/g , ''),
+            name: house.name || '-',
+            region: house.region || '-',
+            words: house.words || '-',
+            titles: house.titles || '-',
+            ancestralWeapons: house.ancestralWeapons || '-'
         }
     }
 
     _transformBook(book) {
         return {
-            name: book.name,
-            numberOfPages: book.numberOfPages,
-            publiser: book.publiser,
-            released: book.released
+            id: book.url.replace(/[https, api, /, :, www, nofcendfrem, ., bk]/g , ''),
+            name: book.name || '-',
+            numberOfPages: book.numberOfPages || '-',
+            publiser: book.publiser || '-',
+            released: book.released || '-'
         }
     }
 }
