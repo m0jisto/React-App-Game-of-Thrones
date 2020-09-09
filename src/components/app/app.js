@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import {Col, Row, Container} from 'reactstrap';
+import {Container} from 'reactstrap'
 import Header from '../header';
-import RandomChar from '../randomChar';
-import {CharacterPage, BookPage, HousePage} from '../page/'
-import gotService from '../../services/gotService'
+import {CharacterPage, CharacterItem, BookPage, BooksItem, HousePage, HouseItem} from '../page/'
+
 
 import {
     BrowserRouter as Router, 
@@ -14,50 +13,48 @@ import {
 import './app.css'
 
 export default class App extends Component {
-    gotService = new gotService()
-
     render () {
         return (
             <Router>
                 <div className="app">
                     <Container>
                         <Header />
-                    </Container>
-                    <Container>
-                        <Row>
-                            <Col lg={{size: 5, offset: 0}}>
-                                <Route path="/characters" component={RandomChar}/>
-                            </Col>
-                        </Row>
+                        
+                        <Route path="/" exact component={ () => 
+                            <>
+                                <h1 className="title">Welcome to the world <br/> "Game of Thrones!"</h1>
+                                <h2 className="subtitle">Select the category you are interested in</h2>
+                            </>
+                        }/>
 
+                        <Route path='/characters' exact component={CharacterPage}/>
+                        <Route path='/characters/:id' exact render={ 
+                            ({match}) => {
+                                const {id} = match.params
+                                return <CharacterItem charaterId={id}/>
+                            }
+                        }/>
 
-                        <Route path="/" exact component={ () => <h1 className="title">Welcome to world Game of Thrones!</h1>}/>
-                        <Route path='/characters' component={CharacterPage}/>
-                        <Route path='/books' component={BookPage}/>
-                        <Route path='/houses' component={HousePage}/>
+                        <Route path='/houses' exact component={HousePage}/>
+                        <Route path='/houses/:id' exact render={ 
+                            ({match}) => {
+                                const {id} = match.params
+                                return <HouseItem houseId={id}/>
+                            }
+                        }/>
 
-                        <Redirect to="/"/>
+                        <Route path='/books' exact component={BookPage}/>
+                        <Route path='/books/:id' exact render={ 
+                            ({match}) => {
+                                const {id} = match.params
+                                return <BooksItem bookId={id}/>
+                            }
+                        }/>
+
+                        <Redirect to='/' />
                     </Container>
                 </div>
             </Router>
         );
     }
 };
-
-/* <> 
-    <Container>
-        <Header />
-    </Container>
-    <Container>
-        <Row>
-            <Col lg={{size: 5, offset: 0}}>
-                {char}
-                <Button className="bg-primary mb-3"
-                    onClick={this.onDelete}>Toggle RandomChar</Button>
-            </Col>
-        </Row>
-        <CharacterPage/>
-        <BookPage/>
-        <HousePage/>
-    </Container>
-</> */

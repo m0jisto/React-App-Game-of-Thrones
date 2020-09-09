@@ -1,24 +1,20 @@
 import React, { Component } from 'react';
-import RowBlock from '../rowBlock'
+import {Row, Col} from 'reactstrap'
 import ItemList from '../itemList';
-import ItemDetails, { Field } from '../itemDetails';
+import RandomItem, {Properties} from '../randomItem'
 import ErrorMessage from '../errorMessage';
 import gotService from '../../services/gotService';
+import {withRouter} from 'react-router-dom'
 
-export default class CharacterPage extends Component {
+class CharacterPage extends Component {
     gotService = new gotService()
 
     state = {
-        selectedItem: null,
         error: false
     }
 
     componentDidCatch() {
         this.setState({error: true})
-    }
-
-    onItemSelected = (id) => {
-        this.setState({selectedItem: id})
     }
 
     render() {
@@ -28,29 +24,34 @@ export default class CharacterPage extends Component {
             )
         }
 
-        const itemList = (
-            <ItemList 
-                onItemSelected={this.onItemSelected}
-                getData={this.gotService.getAllCharacters}
-                renderItem={({name}) => name}/>
-        )
-
-        const itemDetails = (
-            <ItemDetails 
-                itemId={this.state.selectedItem}
-                getData={this.gotService.getCharacter}
-            >
-                <Field field='gender' label='Gender' />
-                <Field field='born' label='Born' />
-                <Field field='died' label='Died' />
-                <Field field='culture' label='Culture' />
-            </ItemDetails>
-        )
-
         return (
-            <RowBlock
-                itemList={itemList}
-                itemDetails={itemDetails}/>
+            <>
+                <Row>
+                    <Col md="6">
+                    <RandomItem
+                        minIndex={25}
+                        maxIndex={1400}
+                        getData={this.gotService.getCharacter}
+                        name={'Character'}
+                    >
+                        <Properties field='gender' label='Gender' />
+                        <Properties field='born' label='Born' />
+                        <Properties field='died' label='Died' />
+                        <Properties field='culture' label='Culture' />
+                    </RandomItem>
+                    </Col>
+                    <Col md="6">
+                        <ItemList 
+                            onItemSelected={(id) => {
+                                this.props.history.push(id)
+                            }}
+                            getData={this.gotService.getAllCharacters}
+                            renderItem={({name}) => name}/> 
+                    </Col>
+                </Row>
+            </>
         )
     }
 }
+
+export default withRouter(CharacterPage)

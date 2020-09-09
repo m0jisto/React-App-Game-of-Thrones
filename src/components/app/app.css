@@ -19,5 +19,14 @@
 }
 
 .title{
+    margin-top: 200px;
     color: white;
+    text-align: center;
+    font-size: 80px;
+}
+
+.subtitle {
+    margin-top: 150px;
+    color: white;
+    text-align: center;
 }
