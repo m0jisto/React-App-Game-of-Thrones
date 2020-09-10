@@ -1,26 +1,14 @@
 import React, {Component} from 'react';
-import './itemDetails.css'
-
 import gotService from '../../services/gotService'
 import Spinner from '../spinner';
 
-const Field = ({item, field, label}) => {
-    return (
-        <li className="list-group-item d-flex justify-content-between">
-            <span className="term">{label}</span>
-            <span>{item[field]}</span>
-        </li>
-    )
-}
-
-export { Field }
+import './itemDetails.css'
 
 export default class ItemDetails extends Component {
     gotService = new gotService()
 
     state = {
-        item: null,
-        loading: false
+        item: null
     }
 
     componentDidMount() {
@@ -30,7 +18,6 @@ export default class ItemDetails extends Component {
     componentDidUpdate(prevProps) {
         if (this.props.itemId !== prevProps.itemId) {
             this.updateItem()
-            this.setState({loading: true})
         }
     }
 
@@ -42,20 +29,14 @@ export default class ItemDetails extends Component {
         }
 
         getData(itemId)
-            .then(item => this.setState({
-                item,
-                loading: false
-            }))
+            .then(item => this.setState({item}))
     }
 
     render() {
         if (!this.state.item) {
-            return <span className="select-error">Please, select item in the list</span>
-        }
-
-        if (this.state.loading) {
             return <Spinner/>
         }
+
         const {item} = this.state
         const {name} = item
 

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import {Row, Col} from 'reactstrap'
+import {Row, Col} from 'reactstrap';
+import Field from '../field/';
 import ItemList from '../itemList';
-import RandomItem, {Properties} from '../randomItem'
+import RandomItem from '../randomItem/'
 import ErrorMessage from '../errorMessage';
 import gotService from '../../services/gotService';
 import {withRouter} from 'react-router-dom'
@@ -34,9 +35,9 @@ class BookPage extends Component {
                             getData={this.gotService.getBook}
                             name={'Book'}
                         >
-                            <Properties field='numberOfPages' label='Number of pages' />
-                            <Properties field='publiser' label='Publiser' />
-                            <Properties field='released' label='Released' />
+                            <Field field='numberOfPages' label='Number of pages' />
+                            <Field field='publiser' label='Publiser' />
+                            <Field field='released' label='Released' />
                         </RandomItem>
                     </Col>
                     <Col md="6">

@@ -4,18 +4,7 @@ import ErrorMessage from '../errorMessage';
 
 import './randomItem.css';
 
-const Properties = ({item, field, label}) => {
-    return (
-        <li className="list-group-item d-flex justify-content-between">
-            <span className="term">{label}</span>
-            <span>{item[field]}</span>
-        </li>
-    )
-}
-
-export {Properties}
-
-export default class randomItem extends Component {
+export default class RandomItem extends Component {
     state = {
         item: {},
         loading: true

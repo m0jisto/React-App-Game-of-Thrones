@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import {Row, Col} from 'reactstrap'
 import ItemList from '../itemList';
-import RandomItem, {Properties} from '../randomItem'
+import RandomItem from '../randomItem'
 import ErrorMessage from '../errorMessage';
 import gotService from '../../services/gotService';
 import {withRouter} from 'react-router-dom'
+import Field from '../field/';
 
 class HousePage extends Component {
     gotService = new gotService()
@@ -34,10 +35,10 @@ class HousePage extends Component {
                         getData={this.gotService.getHouse}
                         name={'House'}
                     >
-                        <Properties field='region' label='Region' />
-                        <Properties field='words' label='Words' />
-                        <Properties field='titles' label='Titles' />
-                        <Properties field='ancestralWeapons' label='Ancestral Weapons' />
+                        <Field field='region' label='Region' />
+                        <Field field='words' label='Words' />
+                        <Field field='titles' label='Titles' />
+                        <Field field='ancestralWeapons' label='Ancestral Weapons' />
                     </RandomItem>
                     </Col>
                     <Col md="6">

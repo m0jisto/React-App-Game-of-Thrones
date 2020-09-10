@@ -1,5 +1,2 @@
-import randomItem, {Properties} from './randomItem';
-export default randomItem;
-export {
-    Properties
-}
+import RandomItem from './randomItem';
+export default RandomItem
