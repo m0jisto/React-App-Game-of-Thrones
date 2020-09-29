@@ -1,10 +1,10 @@
-import CharacterPage from './characterPage'
-import BookPage from './bookPage'
-import HousePage from './housePage'
+import CharacterPage from './characters/characterPage';
+import HousePage from './houses/housePage';
+import BookPage from './books/bookPage';
 
-import CharacterItem from './characterItem'
-import HouseItem from './houseItem'
-import BooksItem from './bookItem'
+import CharacterItem from './characters/characterItem';
+import HouseItem from './houses/houseItem';
+import BooksItem from './books/bookItem';
 
 export {
     CharacterPage,

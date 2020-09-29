@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import {Row, Col} from 'reactstrap';
-import Field from '../field/';
-import ItemList from '../itemList';
-import RandomItem from '../randomItem/'
-import ErrorMessage from '../errorMessage';
-import gotService from '../../services/gotService';
+import Field from '../../field';
+import ItemList from '../../itemList';
+import RandomItem from '../../randomItem'
+import ErrorMessage from '../../errorMessage';
+import gotService from '../../../services/gotService';
 import {withRouter} from 'react-router-dom'
 
 class BookPage extends Component {

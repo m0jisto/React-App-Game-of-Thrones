@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import {Row, Col} from 'reactstrap'
-import ItemList from '../itemList';
-import RandomItem from '../randomItem'
-import ErrorMessage from '../errorMessage';
-import gotService from '../../services/gotService';
+import ItemList from '../../itemList';
+import RandomItem from '../../randomItem'
+import ErrorMessage from '../../errorMessage';
+import gotService from '../../../services/gotService';
 import {withRouter} from 'react-router-dom'
-import Field from '../field/';
+import Field from '../../field';
 
-class HousePage extends Component {
+class CharacterPage extends Component {
     gotService = new gotService()
 
     state = {
@@ -30,15 +30,15 @@ class HousePage extends Component {
                 <Row>
                     <Col md="6">
                     <RandomItem
-                        minIndex={1}
-                        maxIndex={10}
-                        getData={this.gotService.getHouse}
-                        name={'House'}
+                        minIndex={25}
+                        maxIndex={1400}
+                        getData={this.gotService.getCharacter}
+                        name={'Character'}
                     >
-                        <Field field='region' label='Region' />
-                        <Field field='words' label='Words' />
-                        <Field field='titles' label='Titles' />
-                        <Field field='ancestralWeapons' label='Ancestral Weapons' />
+                        <Field field='gender' label='Gender' />
+                        <Field field='born' label='Born' />
+                        <Field field='died' label='Died' />
+                        <Field field='culture' label='Culture' />
                     </RandomItem>
                     </Col>
                     <Col md="6">
@@ -46,7 +46,7 @@ class HousePage extends Component {
                             onItemSelected={(id) => {
                                 this.props.history.push(id)
                             }}
-                            getData={this.gotService.getAllHouses}
+                            getData={this.gotService.getAllCharacters}
                             renderItem={({name}) => name}/> 
                     </Col>
                 </Row>
@@ -55,4 +55,4 @@ class HousePage extends Component {
     }
 }
 
-export default withRouter(HousePage)
+export default withRouter(CharacterPage)
